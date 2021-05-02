@@ -24,12 +24,8 @@
 
 - [Sobre](#about)
 - [Instalação](#getting_started)
-- [Deployment](#deployment)
-- [Usage](#usage)
-- [Built Using](#built_using)
-- [TODO](../TODO.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
+- [Testes](#tests)
+- [Autor](#authors)
 - [Acknowledgments](#acknowledgement)
 
 ## 🧐 Sobre <a name = "about"></a>
@@ -69,6 +65,8 @@ Para iniciar a aplicação com o Docker basta seguir o comando abaixo
 
 ```
 docker-compose up
+
+yarn typeorm migration:run
 ```
 
 Com o container no ar basta digitar a url no navegador
@@ -77,49 +75,21 @@ Com o container no ar basta digitar a url no navegador
 http://localhost:3333/api-docs
 ```
 
-## 🔧 Running the tests <a name = "tests"></a>
-
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Caso queira rodar sem o Docker terá de instalar o Postgres e Redis na máquina e rodar o comando
 
 ```
-Give an example
+yarn dev or npm run dev
+
+yarn typeorm migration:run
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+## 🔧 Rodando os testes <a name = "tests"></a>
 
 ```
-Give an example
+yarn test or npm run test
 ```
 
-## 🎈 Usage <a name="usage"></a>
+## ✍️ Autor <a name = "authors"></a>
 
-Add notes about how to use the system.
+- [Everton Oliveira](https://github.com/SDEverton)
 
-## 🚀 Deployment <a name = "deployment"></a>
-
-Add additional notes about how to deploy this on a live system.
-
-## ⛏️ Built Using <a name = "built_using"></a>
-
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
-
-## ✍️ Authors <a name = "authors"></a>
-
-- [@kylelobo](https://github.com/kylelobo) - Idea & Initial work
-
-See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
-
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- References
