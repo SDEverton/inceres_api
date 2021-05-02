@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import { inject, injectable } from 'tsyringe';
 
+import Logger from '@config/logs';
 import { IPrescriptionsRepository } from '@modules/prescriptions/repositories/IPrescriptionsRepository';
 import { ICacheProvider } from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import { AppError } from '@shared/errors/AppError';
@@ -70,6 +71,11 @@ class CreatePrescriptionsUseCase {
 
     if (cachePhysician) {
       physician = cachePhysician;
+      Logger.info(
+        `physician in cache id: ${physician_id} - ${JSON.stringify(
+          physician.data
+        )}`
+      );
     } else {
       try {
         physician = await createConnection.execute({
@@ -85,7 +91,13 @@ class CreatePrescriptionsUseCase {
           JSON.stringify({ data: physician.data }),
           48
         );
+        Logger.info(
+          `physician send API id: ${physician_id} - ${JSON.stringify(
+            physician.data
+          )}`
+        );
       } catch (error) {
+        Logger.error(`physician id: ${physician_id} - ${error}`);
         throw new AppError('physician not found', 404, '02');
       }
     }
@@ -97,20 +109,31 @@ class CreatePrescriptionsUseCase {
 
     if (cacheClinic) {
       clinic = cacheClinic;
-    } else {
-      clinic = await createConnection.execute({
-        timeout: 5000,
-        token: process.env.CLINICS_TOKEN,
-        method: 'GET',
-        url: `clinics/${clinic_id}`,
-        retry: 3,
-      });
-
-      await this.cacheProvider.save(
-        `@clinic_${clinic_id}`,
-        JSON.stringify({ data: clinic.data }),
-        72
+      Logger.info(
+        `clinic in cache id: ${clinic_id} - ${JSON.stringify(clinic.data)}`
       );
+    } else {
+      try {
+        clinic = await createConnection.execute({
+          timeout: 5000,
+          token: process.env.CLINICS_TOKEN,
+          method: 'GET',
+          url: `clinics/${clinic_id}`,
+          retry: 3,
+        });
+
+        await this.cacheProvider.save(
+          `@clinic_${clinic_id}`,
+          JSON.stringify({ data: clinic.data }),
+          72
+        );
+
+        Logger.info(
+          `clinic send API id: ${clinic_id} - ${JSON.stringify(clinic.data)}`
+        );
+      } catch (error) {
+        Logger.error(`clinic id: ${clinic_id} - ${error}`);
+      }
     }
 
     let patient: AxiosResponse<IPatient>;
@@ -121,6 +144,9 @@ class CreatePrescriptionsUseCase {
 
     if (cachePatient) {
       patient = cachePatient;
+      Logger.info(
+        `clinic in cache id: ${patient_id} - ${JSON.stringify(patient.data)}`
+      );
     } else {
       try {
         patient = await createConnection.execute({
@@ -136,7 +162,11 @@ class CreatePrescriptionsUseCase {
           JSON.stringify({ data: patient.data }),
           12
         );
+        Logger.info(
+          `clinic send API id: ${patient_id} - ${JSON.stringify(patient.data)}`
+        );
       } catch (error) {
+        Logger.error(`clinic id: ${patient_id} - ${error}`);
         throw new AppError('patients service not available', 404, '03');
       }
     }
@@ -148,8 +178,10 @@ class CreatePrescriptionsUseCase {
       text,
     });
 
+    Logger.info(`prescription save: ${JSON.stringify(prescription)}`);
+
     try {
-      await createConnection.execute({
+      const metrics = await createConnection.execute({
         timeout: 6000,
         token: process.env.METRICS_TOKEN,
         method: 'POST',
@@ -167,8 +199,10 @@ class CreatePrescriptionsUseCase {
         },
         retry: 5,
       });
+      Logger.info(`metrics save: ${JSON.stringify(metrics.data)}`);
     } catch (error) {
       await this.prescriptionsRepository.destroy(prescription.id);
+      Logger.error(`metrics service not available: ${error}`);
       throw new AppError('metrics service not available', 404, '04');
     }
 

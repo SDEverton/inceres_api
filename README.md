@@ -55,10 +55,13 @@ Supertest
 Jest
 Swagger
 Typeorm
+Winston
 
 Para criar a aplicação foi utilizado o famoso Express de nos da maior flexibilidade para aplicar o SOLID em conjunto com outras metodologias.
-Como foi necessário consumir serviços externos o Axios é mais malevavel e adaptavel para esse tipo de cenário, também foi solicitado que houvesse persistência dos dados em um banco, logo utilizei o Typeorm para criar esse vinculo com o Postgres (poderia ser outro banco até mesmo o Mongo NoSql). Visando a estrategia de Cache foi usado o Redis para executar essa tarefa respeitando sempre as regras impostas. Para testes utilizei o Jest com Supertest assumindo que essa lib pode ser usada tanto no Back-end como no Front-end.
-Não foi solicitado uma documentação da aplicação, mas inserir o Swagger para que fique mais facíl visializar a aplicação funcioando.
+Como foi necessário consumir serviços externos o Axios é mais malevavel e adaptavel para esse tipo de cenário, também foi solicitado que houvesse persistência dos dados em um banco, logo utilizei o Typeorm para criar esse vinculo com o Postgres (poderia ser outro banco até mesmo o Mongo NoSql). Visando a estrategia de Cache foi usado o Redis para executar essa tarefa respeitando sempre as regras impostas. 
+
+Para testes utilizei o Jest com Supertest assumindo que essa lib pode ser usada tanto no Back-end como no Front-end.
+A documentação da aplicação foi desenvolvida com o Swagger para que fique mais facíl visializar a aplicação funcioando. Para a captura de logs foi usada a lib Winston localmente podendo ser substituida por logs na nuvem ou até mesmo do PM2.
 ### Startando aplicação
 
 Para iniciar a aplicação com o Docker basta seguir o comando abaixo

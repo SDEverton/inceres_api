@@ -1,4 +1,4 @@
-import { Method, AxiosResponse, AxiosError } from 'axios';
+import { Method, AxiosResponse } from 'axios';
 
 import { BaseUrl } from './BaseUrls';
 
@@ -20,10 +20,8 @@ class DependentServices {
     data,
     retry = 1,
   }: IRequest): Promise<AxiosResponse> {
-    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < retry; i++) {
       try {
-        // eslint-disable-next-line no-await-in-loop
         const response = await BaseUrl({
           method,
           timeout,
