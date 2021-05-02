@@ -43,10 +43,26 @@ Seguindo um princípo destacado no desafio no qual a aplicação deve funcionar 
 
 ### Pré-requisitos
 
-<a href="https://nodejs.org/en/">Node Js</a><br />
-<a href="https://docs.docker.com/engine/install/">Docker</a><br />
-<a href="https://docs.docker.com/compose/install/">Docker Compose</a><br />
+- [NodeJS](https://nodejs.org/en/) - Server Environment
+- [Docker](https://docs.docker.com/engine/install/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
+### Principais técnologias envolvidas (libs e outros)
+
+Axios
+Cors
+Dotenv
+Express
+Postgres
+Redis
+Supertest
+Jest
+Swagger
+Typeorm
+
+Para criar a aplicação foi utilizado o famoso Express de nos da maior flexibilidade para aplicar o SOLID em conjunto com outras metodologias.
+Como foi necessário consumir serviços externos o Axios é mais malevavel e adaptavel para esse tipo de cenário, também foi solicitado que houvesse persistência dos dados em um banco, logo utilizei o Typeorm para criar esse vinculo com o Postgres (poderia ser outro banco até mesmo o Mongo NoSql). Visando a estrategia de Cache foi usado o Redis para executar essa tarefa respeitando sempre as regras impostas. Para testes utilizei o Jest com Supertest assumindo que essa lib pode ser usada tanto no Back-end como no Front-end.
+Não foi solicitado uma documentação da aplicação, mas inserir o Swagger para que fique mais facíl visializar a aplicação funcioando.
 ### Startando aplicação
 
 Para iniciar a aplicação com o Docker basta seguir o comando abaixo
@@ -54,6 +70,13 @@ Para iniciar a aplicação com o Docker basta seguir o comando abaixo
 ```
 docker-compose up
 ```
+
+Com o container no ar basta digitar a url no navegador
+
+```
+http://localhost:3333/api-docs
+```
+
 ## 🔧 Running the tests <a name = "tests"></a>
 
 Explain how to run the automated tests for this system.
