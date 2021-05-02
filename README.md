@@ -43,28 +43,17 @@ Seguindo um princípo destacado no desafio no qual a aplicação deve funcionar 
 
 ### Pré-requisitos
 
-<a href="https://nodejs.org/en/">Node Js</a>
-<a href="https://docs.docker.com/engine/install/">Docker</a>
-<a href="https://docs.docker.com/compose/install/">Docker Compose</a>
+<a href="https://nodejs.org/en/">Node Js</a><br />
+<a href="https://docs.docker.com/engine/install/">Docker</a><br />
+<a href="https://docs.docker.com/compose/install/">Docker Compose</a><br />
 
-### Start
+### Startando aplicação
 
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
+Para iniciar a aplicação com o Docker basta seguir o comando abaixo
 
 ```
-Give the example
+docker-compose up
 ```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo.
-
 ## 🔧 Running the tests <a name = "tests"></a>
 
 Explain how to run the automated tests for this system.
