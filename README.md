@@ -16,14 +16,14 @@
 
 ---
 
-<p align="center"> Few lines describing your project.
+<p align="center"> Descrição do projeto
     <br> 
 </p>
 
-## 📝 Table of Contents
+## 📝 Índice
 
-- [About](#about)
-- [Getting Started](#getting_started)
+- [Sobre](#about)
+- [Instalação](#getting_started)
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
@@ -32,23 +32,22 @@
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 
-## 🧐 About <a name = "about"></a>
+## 🧐 Sobre <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+O desafio consiste em criar uma API que contemple as boas práticas (TDD, SOLID, 12Factor) da programação utilizando Node JS.
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+## 🏁 Iniciando <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+Seguindo um princípo destacado no desafio no qual a aplicação deve funcionar em qualquer ambiente foi criado um conteiner utilizando Docker.
 
-### Prerequisites
 
-What things you need to install the software and how to install them.
+### Pré-requisitos
 
-```
-Give examples
-```
+<a href="https://nodejs.org/en/">Node Js</a>
+<a href="https://docs.docker.com/engine/install/">Docker</a>
+<a href="https://docs.docker.com/compose/install/">Docker Compose</a>
 
-### Installing
+### Start
 
 A step by step series of examples that tell you how to get a development env running.
 
