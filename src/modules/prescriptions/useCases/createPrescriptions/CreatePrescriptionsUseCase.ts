@@ -1,10 +1,18 @@
 import { AxiosResponse } from 'axios';
+import redis from 'redis';
 import { inject, injectable } from 'tsyringe';
 
-import { Prescriptions } from '@modules/prescriptions/infra/typeorm/entities/Prescriptions';
 import { IPrescriptionsRepository } from '@modules/prescriptions/repositories/IPrescriptionsRepository';
 import { AppError } from '@shared/errors/AppError';
+// import { redisClient } from '@shared/infra/cache';
 import { DependentServices } from '@shared/infra/http/DependentServices';
+
+const redisClient = redis.createClient({
+  host: 'localhost',
+  port: 6379,
+});
+
+export { redisClient };
 
 interface IRequest {
   clinic_id?: number;
@@ -31,6 +39,22 @@ interface IPatient {
   phone: string;
 }
 
+interface IResponse {
+  data: {
+    id: string;
+    clinic: {
+      id: number;
+    };
+    physician: {
+      id: number;
+    };
+    patient: {
+      id: number;
+    };
+    text: string;
+  };
+}
+
 @injectable()
 class CreatePrescriptionsUseCase {
   constructor(
@@ -42,8 +66,12 @@ class CreatePrescriptionsUseCase {
     patient_id,
     physician_id,
     text,
-  }: IRequest): Promise<Prescriptions> {
+  }: IRequest): Promise<IResponse> {
     const createConnection = new DependentServices();
+
+    const oi = redisClient.set('teste', 'Everton', 'EX', 60 * 60 * 24);
+
+    console.log(oi);
 
     let physician: AxiosResponse<IPhysician>;
     try {
@@ -88,7 +116,7 @@ class CreatePrescriptionsUseCase {
 
     try {
       await createConnection.execute({
-        timeout: 100,
+        timeout: 6000,
         token: process.env.METRICS_TOKEN,
         method: 'POST',
         url: 'https://mysterious-island-73235.herokuapp.com/api/metrics',
@@ -110,7 +138,21 @@ class CreatePrescriptionsUseCase {
       throw new AppError('metrics service not available', 404, '04');
     }
 
-    return prescription;
+    return {
+      data: {
+        id: prescription.id,
+        clinic: {
+          id: clinic_id,
+        },
+        physician: {
+          id: physician_id,
+        },
+        patient: {
+          id: patient_id,
+        },
+        text,
+      },
+    };
   }
 }
 
