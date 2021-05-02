@@ -26,7 +26,6 @@
 - [Instalação](#getting_started)
 - [Testes](#tests)
 - [Autor](#authors)
-- [Acknowledgments](#acknowledgement)
 
 ## 🧐 Sobre <a name = "about"></a>
 
