@@ -1,18 +1,10 @@
 import { AxiosResponse } from 'axios';
-import redis from 'redis';
 import { inject, injectable } from 'tsyringe';
 
 import { IPrescriptionsRepository } from '@modules/prescriptions/repositories/IPrescriptionsRepository';
+import { ICacheProvider } from '@shared/container/providers/CacheProvider/models/ICacheProvider';
 import { AppError } from '@shared/errors/AppError';
-// import { redisClient } from '@shared/infra/cache';
 import { DependentServices } from '@shared/infra/http/DependentServices';
-
-const redisClient = redis.createClient({
-  host: 'localhost',
-  port: 6379,
-});
-
-export { redisClient };
 
 interface IRequest {
   clinic_id?: number;
@@ -59,7 +51,9 @@ interface IResponse {
 class CreatePrescriptionsUseCase {
   constructor(
     @inject('PrescriptionsRepository')
-    private prescriptionsRepository: IPrescriptionsRepository
+    private prescriptionsRepository: IPrescriptionsRepository,
+    @inject('CacheProvider')
+    private cacheProvider: ICacheProvider
   ) {}
   async execute({
     clinic_id,
@@ -69,42 +63,82 @@ class CreatePrescriptionsUseCase {
   }: IRequest): Promise<IResponse> {
     const createConnection = new DependentServices();
 
-    const oi = redisClient.set('teste', 'Everton', 'EX', 60 * 60 * 24);
-
-    console.log(oi);
-
     let physician: AxiosResponse<IPhysician>;
-    try {
-      physician = await createConnection.execute({
-        timeout: 4000,
-        token: process.env.PHYSICIANS_TOKEN,
-        method: 'GET',
-        url: `physicians/${physician_id}`,
-        retry: 2,
-      });
-    } catch (error) {
-      throw new AppError('physician not found', 404, '02');
+    const cachePhysician = await this.cacheProvider.recover(
+      `@physician_${physician_id}`
+    );
+
+    if (cachePhysician) {
+      physician = cachePhysician;
+    } else {
+      try {
+        physician = await createConnection.execute({
+          timeout: 4000,
+          token: process.env.PHYSICIANS_TOKEN,
+          method: 'GET',
+          url: `physicians/${physician_id}`,
+          retry: 2,
+        });
+
+        await this.cacheProvider.save(
+          `@physician_${physician_id}`,
+          JSON.stringify({ data: physician.data }),
+          48
+        );
+      } catch (error) {
+        throw new AppError('physician not found', 404, '02');
+      }
     }
 
-    const clinic: AxiosResponse<IClinic> = await createConnection.execute({
-      timeout: 5000,
-      token: process.env.CLINICS_TOKEN,
-      method: 'GET',
-      url: `clinics/${clinic_id}`,
-      retry: 3,
-    });
+    let clinic: AxiosResponse<IClinic>;
+    const cacheClinic = await this.cacheProvider.recover(
+      `@clinic_${clinic_id}`
+    );
+
+    if (cacheClinic) {
+      clinic = cacheClinic;
+    } else {
+      clinic = await createConnection.execute({
+        timeout: 5000,
+        token: process.env.CLINICS_TOKEN,
+        method: 'GET',
+        url: `clinics/${clinic_id}`,
+        retry: 3,
+      });
+
+      await this.cacheProvider.save(
+        `@clinic_${clinic_id}`,
+        JSON.stringify({ data: clinic.data }),
+        72
+      );
+    }
 
     let patient: AxiosResponse<IPatient>;
-    try {
-      patient = await createConnection.execute({
-        timeout: 3000,
-        token: process.env.PATIENTS_TOKEN,
-        method: 'GET',
-        url: `patients/${patient_id}`,
-        retry: 2,
-      });
-    } catch (error) {
-      throw new AppError('patients service not available', 404, '03');
+
+    const cachePatient = await this.cacheProvider.recover(
+      `@patient_${patient_id}`
+    );
+
+    if (cachePatient) {
+      patient = cachePatient;
+    } else {
+      try {
+        patient = await createConnection.execute({
+          timeout: 3000,
+          token: process.env.PATIENTS_TOKEN,
+          method: 'GET',
+          url: `patients/${patient_id}`,
+          retry: 2,
+        });
+
+        await this.cacheProvider.save(
+          `@patient_${patient_id}`,
+          JSON.stringify({ data: patient.data }),
+          12
+        );
+      } catch (error) {
+        throw new AppError('patients service not available', 404, '03');
+      }
     }
 
     const prescription = await this.prescriptionsRepository.create({

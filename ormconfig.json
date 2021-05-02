@@ -1,7 +1,7 @@
 {
   "type": "postgres",
   "port": 5432,
-  "host": "database_iclinic",
+  "host": "localhost",
   "username": "docker",
   "password": "iclinic",
   "database": "iclinic",

@@ -17,8 +17,12 @@ services:
       - app-network
   redis:
     image: redis:alpine
+    container_name: "redis_iclinic"
+    restart: always
     ports: 
       - 6379:6379
+    networks:
+      - app-network
       
   app:
     build: .
