@@ -3,8 +3,11 @@ export class AppError {
 
   public readonly statusCode: number;
 
-  constructor(message: string, statusCode = 400) {
+  public readonly code?: string;
+
+  constructor(message: string, statusCode = 400, code?: string) {
     this.message = message;
     this.statusCode = statusCode;
+    this.code = code;
   }
 }

@@ -1,13 +1,13 @@
 {
   "type": "postgres",
   "port": 5432,
-  "host": "localhost",
+  "host": "database_iclinic",
   "username": "docker",
-  "password": "ignite",
-  "database": "rentx",
-  "migrations": ["./dist/shared/infra/typeorm/migrations/*js"],
+  "password": "iclinic",
+  "database": "iclinic",
+  "migrations": ["./src/shared/infra/typeorm/migrations/*ts"],
   "cli": {
-    "migrationsDir": "./dist/shared/infra/typeorm/migrations"
+    "migrationsDir": "./src/shared/infra/typeorm/migrations"
   },
-  "entities": ["./dist/modules/**/entities/*js"]
+  "entities": ["./src/modules/**/entities/*ts"]
 }
