@@ -3,9 +3,8 @@
 node_modules/
 build/
 dist/
-tmp/
-temp/
 .env
-logs/
+logs/*
+!logs/.gitkeep
 ormconfig.json
 coverage/

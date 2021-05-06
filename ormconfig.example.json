@@ -3,8 +3,8 @@
   "port": 5432,
   "host": "localhost",
   "username": "docker",
-  "password": "desafio_iclinic",
-  "database": "rentx",
+  "password": "iclinic",
+  "database": "iclinic",
   "migrations": ["./src/shared/infra/typeorm/migrations/*ts"],
   "cli": {
     "migrationsDir": "./src/shared/infra/typeorm/migrations"

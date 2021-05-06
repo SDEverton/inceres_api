@@ -79,6 +79,8 @@ Também foi criado uma action para deploy, para que ela funcione basta inserir a
 Para iniciar a aplicação com o Docker basta seguir o comando abaixo
 
 ```
+yarn or npm i
+
 docker-compose up
 
 yarn typeorm migration:run
