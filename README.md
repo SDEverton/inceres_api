@@ -64,7 +64,15 @@ A documentação da aplicação foi desenvolvida com o Swagger para que fique ma
 
 Existem arquivos de configuração na forma de .example que devem ser usados passando as configurações de quem for utilizar o projeto, são eles: .env.example e o ormconfig.example.json que devem servir como base para os arquivos .env e ormconfig.json.
 
+### Tokens para .env
+
+PHYSICIANS_TOKEN=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJzZXJ2aWNlIjoicGh5c2ljaWFucyJ9.Ei58MtFFGBK4uzpxwnzLxG0Ljdd-NQKVcOXIS4UYJtA
+CLINICS_TOKEN=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJzZXJ2aWNlIjoiY2xpbmljcyJ9.r3w8KS4LfkKqZhOUK8YnIdLhVGJEqnReSClLCMBIJRQ
+PATIENTS_TOKEN=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJzZXJ2aWNlIjoicGF0aWVudHMifQ.Pr6Z58GzNRtjX8Y09hEBzl7dluxsGiaxGlfzdaphzVU
+METRICS_TOKEN=Bearer SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
 Também foi criado uma action para deploy, para que ela funcione basta inserir as variáveis de ambiente, remover os comentários e configurar um ambiente na AWS.
+
 
 ### Startando aplicação
 
