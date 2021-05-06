@@ -5,7 +5,7 @@ import { IRequestHttp } from '@modules/prescriptions/interfaces/InterfacesCreate
 import { AppError } from '@shared/errors/AppError';
 import { yup, validate } from '@shared/validations/RequestValidations';
 
-import { CreatePrescriptionsUseCase } from './CreatePrescriptionsUseCase';
+import { CreatePrescriptionsUseCase } from './CreatePrescriptions.UseCase';
 
 class CreatePrescriptionsController {
   async handle(request: Request, response: Response): Promise<Response> {

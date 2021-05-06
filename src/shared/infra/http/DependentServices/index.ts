@@ -9,6 +9,7 @@ interface IRequest {
   url: string;
   data?: any;
   retry?: number;
+  error?: boolean;
 }
 
 class DependentServices {
@@ -19,6 +20,7 @@ class DependentServices {
     url,
     data,
     retry = 1,
+    error = true,
   }: IRequest): Promise<AxiosResponse> {
     for (let i = 0; i < retry; i++) {
       try {
@@ -35,8 +37,12 @@ class DependentServices {
         if (response) {
           return response;
         }
-      } catch (error) {
-        throw new Error(error);
+      } catch (errors) {
+        if (error) {
+          throw new Error(errors);
+        }
+
+        return errors;
       }
     }
 

@@ -57,7 +57,7 @@ class CreatePrescriptionsUseCase {
       }
     }
 
-    let clinic: AxiosResponse<IClinic>;
+    let clinic: AxiosResponse<IClinic> = null;
     const cacheClinic = await this.cacheProvider.recover(
       `@clinic_${clinic_id}`
     );
@@ -71,6 +71,7 @@ class CreatePrescriptionsUseCase {
         method: 'GET',
         url: `clinics/${clinic_id}`,
         retry: 3,
+        error: false,
       });
 
       await this.cacheProvider.save(
@@ -123,7 +124,7 @@ class CreatePrescriptionsUseCase {
         url: 'https://mysterious-island-73235.herokuapp.com/api/metrics',
         data: {
           clinic_id,
-          clinic_name: clinic.data.name,
+          clinic_name: clinic.data ? clinic.data.name : '',
           physician_id,
           physician_name: physician.data.name,
           physician_crm: physician.data.crm,
