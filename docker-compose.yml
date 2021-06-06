@@ -3,21 +3,21 @@ version: "3.7"
 services: 
   database: 
     image: postgres
-    container_name: "database_iclinic"
+    container_name: "database_tech_porto"
     restart: always
     ports:
       - 5432:5432
     environment: 
       - POSTGRES_USER=docker
-      - POSTGRES_PASSWORD=iclinic
-      - POSTGRES_DB=iclinic
+      - POSTGRES_PASSWORD=tech_porto
+      - POSTGRES_DB=tech_porto
     volumes: 
       - pgdata:/data/postgres
     networks:
       - app-network
   redis:
     image: redis:alpine
-    container_name: "redis_iclinic"
+    container_name: "redis_tech_porto"
     restart: always
     ports: 
       - 6379:6379
@@ -26,7 +26,7 @@ services:
       
   app:
     build: .
-    container_name: iclinic
+    container_name: tech_porto
     ports: 
       - 3333:3333
     volumes: 

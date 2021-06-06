@@ -1,64 +1,55 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "IClinic Documentation",
-    "description": "This is an API IClinic",
+    "title": "Tech Porto Documentation",
+    "description": "This is an API Tech Porto",
     "version": "1.0.0",
     "contact": {
       "email": "evertonsdsilva@gmail.com"
     }
   },
   "paths": {
-    "/v2/prescriptions": {
+    "/v1/users": {
       "post": {
-        "tags": ["Prescriptions"],
-        "summary": "Create a prescription",
-        "description": "Create a new prescription",
+        "tags": ["Users"],
+        "summary": "Create a User",
+        "description": "Create a new User",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "clinic": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      }
-                    }
+                  "name": {
+                    "type": "string"
                   },
-                  "physician": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      }
-                    }
+                  "phone": {
+                    "type": "string"
                   },
-                  "patient": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number"
-                      }
-                    }
+                  "cell_phone": {
+                    "type": "string"
                   },
-                  "text": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "document": {
+                    "type": "string"
+                  },
+                  "birth_date": {
+                    "type": "string"
+                  },
+                  "password": {
                     "type": "string"
                   }
                 },
                 "example": {
-                  "clinic": {
-                    "id": 1
-                  },
-                  "physician": {
-                    "id": 1
-                  },
-                  "patient": {
-                    "id": 1
-                  },
-                  "text": "Dipirona"
+                  "name": "Everton Oliveira",
+                  "phone": "9132867766",
+                  "cell_phone": "91981501208",
+                  "email": "evertonsdsilva@gmail.com",
+                  "document": "36425",
+                  "birth_date": "1987-11-25",
+                  "password": "12345"
                 }
               }
             }
@@ -69,7 +60,7 @@
             "description": "Created"
           },
           "500": {
-            "description": "Category already exists"
+            "description": "User already exists"
           }
         }
       }

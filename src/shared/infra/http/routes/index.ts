@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { prescriptionRoutes } from './prescriptons.routes';
+import { usersRouter } from './users.routes';
 
 const router = Router();
 
-router.use('/v2/prescriptions', prescriptionRoutes);
+router.use('/v1/users', usersRouter);
 
 export { router };
