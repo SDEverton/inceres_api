@@ -13,11 +13,12 @@ import swaggerUi from 'swagger-ui-express';
 import * as Sentry from '@sentry/node';
 import * as Tracing from '@sentry/tracing';
 import { AppError } from '@shared/errors/AppError';
-import '@shared/infra/typeorm';
+import createConnection from '@shared/infra/typeorm';
 
 import swaggerFile from '../../../swagger.json';
 import { router } from './routes';
 
+createConnection();
 const app = express();
 
 Sentry.init({
