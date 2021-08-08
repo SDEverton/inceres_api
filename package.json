@@ -1,5 +1,5 @@
 {
-  "name": "tech_porto_api",
+  "name": "newsos_api",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -13,6 +13,7 @@
   "dependencies": {
     "@sentry/node": "^6.3.5",
     "@sentry/tracing": "^6.3.5",
+    "@types/jsonwebtoken": "^8.5.4",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.4.0",
@@ -21,6 +22,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "ioredis": "^4.27.1",
+    "jsonwebtoken": "^8.5.1",
     "mime": "^2.5.2",
     "morgan": "^1.10.0",
     "pg": "^8.5.1",

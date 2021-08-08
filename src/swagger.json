@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Tech Porto Documentation",
-    "description": "This is an API Tech Porto",
+    "title": "New SOS Documentation",
+    "description": "This is an API New SOS",
     "version": "1.0.0",
     "contact": {
       "email": "evertonsdsilva@gmail.com"
@@ -63,6 +63,91 @@
             "description": "User already exists"
           }
         }
+      }
+    },
+    "/v1/users/auth": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Session a User",
+        "description": "Session a User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "document": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "document": "36425",
+                  "password": "12345"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/v1/distresscall": {
+      "post": {
+        "tags": ["Distress Call"],
+        "summary": "Create Distress Call",
+        "description": "Create Distress Call",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lng": {
+                    "type": "number"
+                  },
+                  "user_id": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "lat": -1.484587367,
+                  "lng": -48.473473,
+                  "user_id": "wfbfwu9h428ewh924tjnwv"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "User already exists"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

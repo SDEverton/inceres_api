@@ -47,7 +47,7 @@ app.use(express.json());
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.use(cors());
-app.use(router);
+app.use('/v1', router);
 
 app.use(Sentry.Handlers.errorHandler());
 
