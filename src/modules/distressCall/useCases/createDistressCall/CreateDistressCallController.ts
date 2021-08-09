@@ -9,7 +9,7 @@ class CreateDistressCallController {
 
     const createDistressCall = container.resolve(CreateDistressCallUseCase);
 
-    await createDistressCall.execute({ lat, lng, user_id });
+    await createDistressCall.execute({ lat, lng, user_id, activid: true });
 
     return response.status(201).json();
   }

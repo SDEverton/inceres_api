@@ -24,6 +24,11 @@ export class DistressCall1628443144794 implements MigrationInterface {
             type: 'uuid',
           },
           {
+            name: 'activid',
+            type: 'boolean',
+            default: true,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

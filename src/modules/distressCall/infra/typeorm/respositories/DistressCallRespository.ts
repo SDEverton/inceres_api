@@ -16,16 +16,28 @@ class DistressCallRespository implements IDistressCallRepository {
     lat,
     lng,
     user_id,
+    activid,
   }: ICreateDistessCallDTO): Promise<DistressCall> {
     const distressCall = this.repository.create({
       lat,
       lng,
       user_id,
+      activid,
     });
 
     await this.repository.save(distressCall);
 
     return distressCall;
+  }
+
+  async finish(id: string): Promise<void> {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ activid: false })
+      .where('id = :id')
+      .setParameters({ id })
+      .execute();
   }
 }
 

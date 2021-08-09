@@ -140,6 +140,79 @@
           }
         }
       }
+    },
+    "/v1/distresscall/{distress_call_id}": {
+      "put": {
+        "tags": ["Distress Call"],
+        "summary": "Update location",
+        "description": "Update location",
+        "parameters": [
+          {
+            "name": "distress_call_id",
+            "in": "path",
+            "description": "Distress call id",
+            "required": true,
+            "schema": {
+              "type":"string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "lat": {
+                    "type": "number"
+                  },
+                  "lng": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "lat": -1.484587367,
+                  "lng": -48.473473
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/v1/distresscall/{id}": {
+      "patch": {
+        "tags": ["Distress Call"],
+        "summary": "Finish distress call",
+        "description": "Finish distress call",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Distress call id",
+            "required": true,
+            "schema": {
+              "type":"string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Finish"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
     }
   },
   "components": {

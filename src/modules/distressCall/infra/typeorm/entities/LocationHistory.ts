@@ -22,6 +22,9 @@ class LocationHistory {
   @Column('decimal')
   lng: number;
 
+  @Column()
+  distress_call_id: string;
+
   @ManyToOne(() => DistressCall)
   @JoinColumn({ name: 'distress_call_id' })
   user: DistressCall;

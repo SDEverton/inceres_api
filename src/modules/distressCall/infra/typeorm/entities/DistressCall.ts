@@ -25,6 +25,9 @@ class DistressCall {
   @Column()
   user_id: string;
 
+  @Column()
+  activid: boolean;
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
