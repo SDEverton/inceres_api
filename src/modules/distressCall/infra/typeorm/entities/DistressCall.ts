@@ -28,6 +28,9 @@ class DistressCall {
   @Column()
   activid: boolean;
 
+  @Column()
+  token_channel: string;
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;

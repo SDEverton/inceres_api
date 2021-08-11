@@ -24,6 +24,10 @@ export class DistressCall1628443144794 implements MigrationInterface {
             type: 'uuid',
           },
           {
+            name: 'token_channel',
+            type: 'varchar',
+          },
+          {
             name: 'activid',
             type: 'boolean',
             default: true,

@@ -17,12 +17,14 @@ class DistressCallRespository implements IDistressCallRepository {
     lng,
     user_id,
     activid,
+    token_channel,
   }: ICreateDistessCallDTO): Promise<DistressCall> {
     const distressCall = this.repository.create({
       lat,
       lng,
       user_id,
       activid,
+      token_channel,
     });
 
     await this.repository.save(distressCall);

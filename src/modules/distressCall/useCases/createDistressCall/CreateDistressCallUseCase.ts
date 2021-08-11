@@ -1,3 +1,4 @@
+import { RtcTokenBuilder, RtcRole } from 'agora-access-token';
 import * as OneSignal from 'onesignal-node';
 import { inject, injectable } from 'tsyringe';
 
@@ -19,11 +20,36 @@ class CreateDistressCallUseCase {
   ) {}
 
   async execute({ lat, lng, user_id }: ICreateDistessCallDTO): Promise<void> {
+    const user = await this.userRepository.findById(user_id);
+
+    const appID = process.env.APP_ID_AGORA;
+    const appCertificate = process.env.CERTIFICATE_AGORA;
+    const channelName = user.document;
+    const uid = Number(user.document);
+
+    const role = RtcRole.PUBLISHER;
+
+    const expirationTimeInSeconds = 3600;
+
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+
+    const privilegeExpiredTs = currentTimestamp + expirationTimeInSeconds;
+
+    const token_channel = RtcTokenBuilder.buildTokenWithUid(
+      appID,
+      appCertificate,
+      channelName,
+      uid,
+      role,
+      privilegeExpiredTs
+    );
+
     const { id } = await this.distressCallRespository.create({
       lat,
       lng,
       user_id,
       activid: true,
+      token_channel,
     });
 
     await this.locationHistoryRepository.create({
@@ -36,8 +62,6 @@ class CreateDistressCallUseCase {
       process.env.APP_ID,
       process.env.APP_KEY
     );
-
-    const user = await this.userRepository.findById(user_id);
 
     const notification = {
       headings: {
