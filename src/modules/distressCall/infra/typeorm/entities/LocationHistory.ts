@@ -25,9 +25,9 @@ class LocationHistory {
   @Column()
   distress_call_id: string;
 
-  @ManyToOne(() => DistressCall)
+  @ManyToOne(() => DistressCall, (distressCall) => distressCall.locationHistory)
   @JoinColumn({ name: 'distress_call_id' })
-  user: DistressCall;
+  distressCall: DistressCall;
 
   @CreateDateColumn()
   created_at: Date;

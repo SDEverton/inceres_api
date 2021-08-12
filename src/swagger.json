@@ -213,6 +213,72 @@
           }
         }
       }
+    },
+    "/v1/distresscall/listall": {
+      "post": {
+        "tags": ["Distress Call"],
+        "summary": "List all didtress call by status",
+        "description": "List all didtress call by status",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "activid": {
+                    "type": "boolean"
+                  },
+                  "take": {
+                    "type": "number"
+                  },
+                  "page": {
+                    "type": "number"
+                  }
+                },
+                "example": {
+                  "activid": true,
+                  "take": 10,
+                  "page": 1
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Listed"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/v1/distresscall/{_id}": {
+      "get": {
+        "tags": ["Distress Call"],
+        "summary": "List distress call by id",
+        "description": "List distress call by id",
+        "parameters": [
+          {
+            "name": "_id",
+            "in": "path",
+            "description": "Distress call id",
+            "required": true,
+            "schema": {
+              "type":"string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Finish"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
     }
   },
   "components": {

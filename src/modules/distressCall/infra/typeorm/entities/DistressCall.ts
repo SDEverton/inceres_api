@@ -4,12 +4,15 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidV4 } from 'uuid';
 
 import { User } from '@modules/users/infra/typeorm/entities/User';
+
+import { LocationHistory } from './LocationHistory';
 
 @Entity('distress_call')
 class DistressCall {
@@ -31,9 +34,16 @@ class DistressCall {
   @Column()
   token_channel: string;
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @OneToMany(
+    () => LocationHistory,
+    (locationHistory) => locationHistory.distressCall
+  )
+  // @JoinColumn({ name: 'id', referencedColumnName: 'distress_call_id' })
+  locationHistory: LocationHistory[];
 
   @CreateDateColumn()
   created_at: Date;

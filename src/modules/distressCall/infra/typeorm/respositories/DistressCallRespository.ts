@@ -32,6 +32,26 @@ class DistressCallRespository implements IDistressCallRepository {
     return distressCall;
   }
 
+  async listAll(
+    activid: boolean,
+    take: number,
+    page: number
+  ): Promise<DistressCall[]> {
+    return this.repository.find({
+      where: { activid },
+      relations: ['user'],
+      take,
+      skip: take * (page - 1),
+    });
+  }
+
+  async listById(id: string): Promise<DistressCall> {
+    return this.repository.findOne({
+      where: { id },
+      relations: ['locationHistory'],
+    });
+  }
+
   async finish(id: string): Promise<void> {
     await this.repository
       .createQueryBuilder()
