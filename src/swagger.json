@@ -301,6 +301,11 @@
         "tags": ["Distress Call"],
         "summary": "Update location",
         "description": "Update location",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "distress_call_id",
@@ -379,6 +384,11 @@
         "tags": ["Distress Call"],
         "summary": "List all didtress call by status",
         "description": "List all didtress call by status",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -419,6 +429,11 @@
         "tags": ["Distress Call"],
         "summary": "List distress call by id",
         "description": "List distress call by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "_id",

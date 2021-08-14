@@ -16,20 +16,14 @@ const finishDistressCallController = new FinishDistressCallController();
 const listAllDistressController = new ListAllDistressController();
 const listByIdDistressCallController = new ListByIdDistressCallController();
 
-distressCallRouter.post(
-  '/',
-  ensureAuthenticated,
-  createDistressCallController.handle
-);
+distressCallRouter.use(ensureAuthenticated);
+
+distressCallRouter.post('/', createDistressCallController.handle);
 distressCallRouter.put(
   '/:distress_call_id',
   createLocationHistoryController.handle
 );
-distressCallRouter.patch(
-  '/:id',
-  ensureAuthenticated,
-  finishDistressCallController.handle
-);
+distressCallRouter.patch('/:id', finishDistressCallController.handle);
 distressCallRouter.post('/listall', listAllDistressController.handle);
 distressCallRouter.get('/:_id', listByIdDistressCallController.handle);
 
