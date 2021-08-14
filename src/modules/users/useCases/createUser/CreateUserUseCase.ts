@@ -20,15 +20,18 @@ class CreateUserUseCase {
     birth_date,
     cell_phone,
   }: ICreateUserDTO): Promise<void> {
-    const userAlreadExists = await this.usersRepository.findByEmail(email);
+    const userAlreadExists = await this.usersRepository.findByDocument(
+      document
+    );
 
-    if (userAlreadExists) {
+    if (userAlreadExists && userAlreadExists.email !== null) {
       throw new AppError('User already exists!', 404);
     }
 
     const passwordHash = await hash(password, 8);
 
-    await this.usersRepository.create({
+    await this.usersRepository.update({
+      id: userAlreadExists.id,
       name,
       email,
       password: passwordHash,

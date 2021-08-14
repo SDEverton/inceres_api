@@ -43,6 +43,7 @@ class UserRepository implements IUsersRepository {
   async findByDocument(document: string): Promise<User> {
     const user = await this.repository.findOne({ where: { document } });
 
+    console.log(user);
     return user;
   }
 
@@ -50,6 +51,16 @@ class UserRepository implements IUsersRepository {
     const user = await this.repository.findOne({ where: { id } });
 
     return user;
+  }
+
+  async update(data: ICreateUserDTO): Promise<void> {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set(data)
+      .where('id = :id')
+      .setParameters({ id: data.id })
+      .execute();
   }
 }
 

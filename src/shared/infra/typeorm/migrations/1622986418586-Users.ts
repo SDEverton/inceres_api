@@ -15,18 +15,22 @@ export class Users1622986418586 implements MigrationInterface {
           {
             name: 'name',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'phone',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'cell_phone',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'email',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'document',
@@ -35,20 +39,29 @@ export class Users1622986418586 implements MigrationInterface {
           {
             name: 'birth_date',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'password',
             type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'avatar',
+            type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
+            isNullable: true,
           },
           {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
+            isNullable: true,
           },
         ],
       })

@@ -10,6 +10,8 @@ class UserMap {
     id,
     document,
     cell_phone,
+    avatar_url,
+    avatar,
   }: User): IUserResponseDTO {
     const user = classToClass({
       email,
@@ -17,6 +19,8 @@ class UserMap {
       id,
       document,
       cell_phone,
+      avatar_url,
+      avatar,
     });
     return user;
   }

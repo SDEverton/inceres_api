@@ -65,6 +65,67 @@
         }
       }
     },
+    "/v1/users/{document}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Validate document",
+        "description": "Validate document",
+        "parameters": [
+          {
+            "name": "document",
+            "in": "path",
+            "description": "document",
+            "required": true,
+            "schema": {
+              "type":"string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User enabled for registration"
+          },
+          "500": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/v1/users/avatar": {
+      "patch": {
+        "tags": ["Users"],
+        "summary": "Validate document",
+        "description": "Validate document",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User enabled for registration"
+          },
+          "500": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
     "/v1/users/auth": {
       "post": {
         "tags": ["Users"],

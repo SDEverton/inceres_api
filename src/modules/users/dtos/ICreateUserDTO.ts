@@ -7,6 +7,7 @@ interface ICreateUserDTO {
   cell_phone: string;
   birth_date: string;
   document: string;
+  avatar?: string;
 }
 
 export { ICreateUserDTO };
