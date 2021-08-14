@@ -5,6 +5,8 @@ import uploadConfig from '@config/upload';
 import { AuthenticateUserController } from '@modules/users/useCases/authenticateUser/AuthenticateUseController';
 import { CreateUserController } from '@modules/users/useCases/createUser/CreateUserController';
 import { SearchUserExistController } from '@modules/users/useCases/searchUserExist/SearchUserExistController';
+import { SendForgotPassowrdMailController } from '@modules/users/useCases/sendForgotPasswordMail/SendForgotPassowrdMailController';
+import { UpdateUserController } from '@modules/users/useCases/updateUser/UpdateUserController';
 import { UpdateUserAvatarController } from '@modules/users/useCases/updateUserAvatar/UpdateUserAvatarController';
 
 import { ensureAuthenticated } from '../middleware/ensureAuthenticated';
@@ -17,6 +19,8 @@ const createUserController = new CreateUserController();
 const authenticateUserController = new AuthenticateUserController();
 const searchUserExistController = new SearchUserExistController();
 const updateUserAvatarController = new UpdateUserAvatarController();
+const sendForgotPassowrdMailController = new SendForgotPassowrdMailController();
+const updateUserController = new UpdateUserController();
 
 usersRouter.post('/', createUserController.handle);
 usersRouter.get('/:document', searchUserExistController.handle);
@@ -26,6 +30,8 @@ usersRouter.patch(
   uploadAvatar.single('avatar'),
   updateUserAvatarController.handle
 );
+usersRouter.post('/resetpassword', sendForgotPassowrdMailController.handle);
+usersRouter.put('/update', ensureAuthenticated, updateUserController.handle);
 usersRouter.post('/auth', authenticateUserController.handle);
 
 export { usersRouter };

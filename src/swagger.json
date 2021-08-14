@@ -65,6 +65,67 @@
         }
       }
     },
+    "/v1/users/update": {
+      "put": {
+        "tags": ["Users"],
+        "summary": "Update a User",
+        "description": "Update a new User",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "cell_phone": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "document": {
+                    "type": "string"
+                  },
+                  "birth_date": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Everton Oliveira",
+                  "phone": "9132867766",
+                  "cell_phone": "91981501208",
+                  "email": "evertonsdsilva@gmail.com",
+                  "document": "36425",
+                  "birth_date": "1987-11-25",
+                  "password": "12345"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "500": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
     "/v1/users/{document}": {
       "get": {
         "tags": ["Users"],
@@ -119,6 +180,38 @@
         "responses": {
           "200": {
             "description": "User enabled for registration"
+          },
+          "500": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/v1/users/resetpassword": {
+      "post": {
+        "tags": ["Users"],
+        "summary": "Reset password",
+        "description": "Reset password",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "evertonsdsilva@gmail.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
           },
           "500": {
             "description": "User already exists"

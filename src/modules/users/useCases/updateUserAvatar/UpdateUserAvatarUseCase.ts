@@ -19,7 +19,6 @@ class UpdateUserAvatarUseCase {
   async execute({ user_id, avatar_file }: IResquest): Promise<void> {
     const user = await this.usersRepository.findById(user_id);
 
-    console.log({ user_id, avatar_file });
     if (user.avatar) {
       await this.storageProvider.delete(user.avatar, 'avatar');
     }

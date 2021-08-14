@@ -43,7 +43,6 @@ class UserRepository implements IUsersRepository {
   async findByDocument(document: string): Promise<User> {
     const user = await this.repository.findOne({ where: { document } });
 
-    console.log(user);
     return user;
   }
 
