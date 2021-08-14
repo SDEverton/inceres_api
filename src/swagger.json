@@ -106,6 +106,11 @@
         "tags": ["Distress Call"],
         "summary": "Create Distress Call",
         "description": "Create Distress Call",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -117,15 +122,11 @@
                   },
                   "lng": {
                     "type": "number"
-                  },
-                  "user_id": {
-                    "type": "string"
                   }
                 },
                 "example": {
                   "lat": -1.484587367,
-                  "lng": -48.473473,
-                  "user_id": "wfbfwu9h428ewh924tjnwv"
+                  "lng": -48.473473
                 }
               }
             }
@@ -193,6 +194,11 @@
         "tags": ["Distress Call"],
         "summary": "Finish distress call",
         "description": "Finish distress call",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",

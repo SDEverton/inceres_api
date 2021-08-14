@@ -6,6 +6,8 @@ import { FinishDistressCallController } from '@modules/distressCall/useCases/fin
 import { ListAllDistressController } from '@modules/distressCall/useCases/listAllDistressCall/ListAllDistressCallController';
 import { ListByIdDistressCallController } from '@modules/distressCall/useCases/listByIdDistressCall/ListByIdDistressCallController';
 
+import { ensureAuthenticated } from '../middleware/ensureAuthenticated';
+
 const distressCallRouter = Router();
 
 const createDistressCallController = new CreateDistressCallController();
@@ -14,12 +16,20 @@ const finishDistressCallController = new FinishDistressCallController();
 const listAllDistressController = new ListAllDistressController();
 const listByIdDistressCallController = new ListByIdDistressCallController();
 
-distressCallRouter.post('/', createDistressCallController.handle);
+distressCallRouter.post(
+  '/',
+  ensureAuthenticated,
+  createDistressCallController.handle
+);
 distressCallRouter.put(
   '/:distress_call_id',
   createLocationHistoryController.handle
 );
-distressCallRouter.patch('/:id', finishDistressCallController.handle);
+distressCallRouter.patch(
+  '/:id',
+  ensureAuthenticated,
+  finishDistressCallController.handle
+);
 distressCallRouter.post('/listall', listAllDistressController.handle);
 distressCallRouter.get('/:_id', listByIdDistressCallController.handle);
 

@@ -5,11 +5,14 @@ import { CreateDistressCallUseCase } from './CreateDistressCallUseCase';
 
 class CreateDistressCallController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { lat, lng, user_id } = request.body;
+    const { lat, lng } = request.body;
+    const {
+      user: { id },
+    } = request;
 
     const createDistressCall = container.resolve(CreateDistressCallUseCase);
 
-    await createDistressCall.execute({ lat, lng, user_id, activid: true });
+    await createDistressCall.execute({ lat, lng, user_id: id, activid: true });
 
     return response.status(201).json();
   }

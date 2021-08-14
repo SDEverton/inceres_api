@@ -46,10 +46,19 @@ class DistressCallRespository implements IDistressCallRepository {
   }
 
   async listById(id: string): Promise<DistressCall> {
-    return this.repository.findOne({
+    const distressCall = await this.repository.findOne({
       where: { id },
-      relations: ['locationHistory'],
+      relations: ['locationHistory', 'user'],
     });
+
+    delete distressCall.user.password;
+    delete distressCall.user.birth_date;
+    delete distressCall.user.created_at;
+    delete distressCall.user.id;
+    delete distressCall.user.updated_at;
+    delete distressCall.user.phone;
+
+    return distressCall;
   }
 
   async finish(id: string): Promise<void> {
