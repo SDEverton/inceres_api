@@ -12,9 +12,14 @@ class CreateDistressCallController {
 
     const createDistressCall = container.resolve(CreateDistressCallUseCase);
 
-    await createDistressCall.execute({ lat, lng, user_id: id, activid: true });
+    const data = await createDistressCall.execute({
+      lat,
+      lng,
+      user_id: id,
+      activid: true,
+    });
 
-    return response.status(201).json();
+    return response.status(200).json(data);
   }
 }
 

@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { DistressCall } from '@modules/distressCall/infra/typeorm/entities/DistressCall';
 import { IDistressCallRepository } from '@modules/distressCall/respositories/IDistressCallRepository';
+import { UserMap } from '@modules/users/mapper/UserMap';
 
 @injectable()
 class ListAllDistressCallUseCase {
@@ -30,12 +31,7 @@ class ListAllDistressCallUseCase {
         token_channel: item.token_channel,
         created_at: item.created_at,
         updated_at: item.updated_at,
-        user: {
-          id: item.user.id,
-          name: item.user.name,
-          document: item.user.document,
-          cell_phone: item.user.cell_phone,
-        },
+        user: UserMap.toDTO(item.user),
       };
     });
 

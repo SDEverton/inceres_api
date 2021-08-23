@@ -3,9 +3,15 @@ import { inject, injectable } from 'tsyringe';
 import { ICreateDistessCallDTO } from '@modules/distressCall/dtos/ICreateDistessCallDTO';
 import { IDistressCallRepository } from '@modules/distressCall/respositories/IDistressCallRepository';
 import { ILocationRepository } from '@modules/distressCall/respositories/ILocationHistoryRespository';
+import { UserMap } from '@modules/users/mapper/UserMap';
 import { IUsersRepository } from '@modules/users/repositories/IUsersRepository';
 import { IPushNotificationProvider } from '@shared/container/providers/PushNotification/models/IPushNotificationProvider';
 import { IVideoCallProvider } from '@shared/container/providers/VideoCall/models/IVideoCallProvider';
+
+interface IReturn {
+  id: string;
+  token_channel: string;
+}
 
 @injectable()
 class CreateDistressCallUseCase {
@@ -22,8 +28,13 @@ class CreateDistressCallUseCase {
     private agoraProvider: IVideoCallProvider
   ) {}
 
-  async execute({ lat, lng, user_id }: ICreateDistessCallDTO): Promise<void> {
+  async execute({
+    lat,
+    lng,
+    user_id,
+  }: ICreateDistessCallDTO): Promise<IReturn> {
     const user = await this.userRepository.findById(user_id);
+    const userFormated = UserMap.toDTO(user);
 
     const token_channel = await this.agoraProvider.createToken(user.document);
 
@@ -46,7 +57,10 @@ class CreateDistressCallUseCase {
       document: user.document,
       name: user.name,
       color: 'AE1F29',
+      icon: userFormated.avatar_url,
     });
+
+    return { id, token_channel };
   }
 }
 

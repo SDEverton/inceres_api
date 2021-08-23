@@ -9,6 +9,7 @@ interface ISend {
   name: string;
   document: string;
   color: string;
+  icon: string;
 }
 
 class OnseSignalProvider implements IPushNotificationProvider {
@@ -18,7 +19,7 @@ class OnseSignalProvider implements IPushNotificationProvider {
     this.client = new OneSignal.Client(process.env.APP_ID, process.env.APP_KEY);
   }
 
-  async send({ title, name, document, color }: ISend): Promise<void> {
+  async send({ title, name, document, color, icon }: ISend): Promise<void> {
     const notification = {
       headings: {
         en: title,
@@ -27,8 +28,7 @@ class OnseSignalProvider implements IPushNotificationProvider {
         en: `${name} - ${document} 
         `,
       },
-      large_icon:
-        'https://sigpol.pm.pa.gov.br/upload/pessoa/1/8/5/9/6/foto.jpg',
+      large_icon: icon,
       included_segments: ['Subscribed Users'],
       android_led_color: color,
       android_accent_color: color,
