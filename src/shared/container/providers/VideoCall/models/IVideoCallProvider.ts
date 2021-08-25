@@ -1,5 +1,5 @@
 interface IVideoCallProvider {
-  createToken(document: string): Promise<string>;
+  createToken(document: string, uid: number): Promise<string>;
 }
 
 export { IVideoCallProvider };

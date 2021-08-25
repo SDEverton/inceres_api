@@ -5,6 +5,7 @@ interface ICreateDistessCallDTO {
   user_id: string;
   activid: boolean;
   token_channel?: string;
+  uid?: number;
 }
 
 export { ICreateDistessCallDTO };

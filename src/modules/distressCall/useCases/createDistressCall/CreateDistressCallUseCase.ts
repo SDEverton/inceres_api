@@ -32,11 +32,15 @@ class CreateDistressCallUseCase {
     lat,
     lng,
     user_id,
+    uid,
   }: ICreateDistessCallDTO): Promise<IReturn> {
     const user = await this.userRepository.findById(user_id);
     const userFormated = UserMap.toDTO(user);
 
-    const token_channel = await this.agoraProvider.createToken(user.document);
+    const token_channel = await this.agoraProvider.createToken(
+      user.document,
+      uid
+    );
 
     const { id } = await this.distressCallRespository.create({
       lat,
