@@ -14,12 +14,11 @@ import upload from '@config/upload';
 import * as Sentry from '@sentry/node';
 import * as Tracing from '@sentry/tracing';
 import { AppError } from '@shared/errors/AppError';
-import createConnection from '@shared/infra/typeorm';
+import '@shared/infra/typeorm';
 
 import swaggerFile from '../../../swagger.json';
 import { router } from './routes';
 
-createConnection();
 const app = express();
 
 Sentry.init({
@@ -47,7 +46,7 @@ app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
-app.use('/avatar', express.static(`${upload.tmpFolder}/avatar`));
+app.use('/file', express.static(`${upload.tmpFolder}/file`));
 
 app.use(cors());
 app.use('/v1', router);

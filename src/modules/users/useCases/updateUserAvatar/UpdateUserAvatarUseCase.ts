@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe';
 
 import { User } from '@modules/users/infra/typeorm/entities/User';
 import { UserRepository } from '@modules/users/infra/typeorm/repositories/UserRepository';
-import { UserMap } from '@modules/users/mapper/UserMap';
 import { IStorageProvider } from '@shared/container/providers/StorageProvider/IStrorageProvider';
 
 interface IResquest {
@@ -18,23 +17,12 @@ class UpdateUserAvatarUseCase {
     @inject('StorageProvider')
     private storageProvider: IStorageProvider
   ) {}
-  async execute({ user_id, avatar_file }: IResquest): Promise<UserMap> {
+  async execute({ user_id, avatar_file }: IResquest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
-
-    if (user.avatar) {
-      await this.storageProvider.delete(user.avatar, 'avatar');
-    }
 
     await this.storageProvider.save(avatar_file, 'avatar');
 
-    user.avatar = avatar_file;
-
-    await this.usersRepository.update(user);
-
-    const userUpdate = await this.usersRepository.findById(user_id);
-    delete userUpdate.password;
-
-    return UserMap.toDTO(userUpdate);
+    return user;
   }
 }
 

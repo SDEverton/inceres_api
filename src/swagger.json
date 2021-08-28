@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "New SOS Documentation",
-    "description": "This is an API New SOS",
+    "title": "Inceres Documentation",
+    "description": "This is an API Inceres",
     "version": "1.0.0",
     "contact": {
       "email": "evertonsdsilva@gmail.com"
@@ -22,41 +22,17 @@
                 "properties": {
                   "name": {
                     "type": "string"
-                  },
-                  "phone": {
-                    "type": "string"
-                  },
-                  "cell_phone": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "document": {
-                    "type": "string"
-                  },
-                  "birth_date": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
                   }
                 },
                 "example": {
-                  "name": "Everton Oliveira",
-                  "phone": "9132867766",
-                  "cell_phone": "91981501208",
-                  "email": "evertonsdsilva@gmail.com",
-                  "document": "36425",
-                  "birth_date": "1987-11-25",
-                  "password": "12345"
+                  "name": "Everton Oliveira"
                 }
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Created"
           },
           "500": {
@@ -65,77 +41,70 @@
         }
       }
     },
-    "/v1/users/update": {
-      "put": {
+    "/v1/users/list": {
+      "get": {
         "tags": ["Users"],
-        "summary": "Update a User",
-        "description": "Update a new User",
-        "security": [
-          {
-            "bearerAuth": []
+        "summary": "List all User",
+        "description": "List all User",
+        "responses": {
+          "200": {
+            "description": "Array"
+          },
+          "500": {
+            "description": "User already exists"
           }
-        ],
+        }
+      }
+    },
+    "/v1/notes": {
+      "post": {
+        "tags": ["Notes"],
+        "summary": "Create a Notes",
+        "description": "Create a new Notes",
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "description": {
                     "type": "string"
                   },
-                  "phone": {
+                  "type_file": {
                     "type": "string"
                   },
-                  "cell_phone": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "document": {
-                    "type": "string"
-                  },
-                  "birth_date": {
-                    "type": "string"
-                  },
-                  "password": {
+                  "user_id": {
                     "type": "string"
                   }
-                },
-                "example": {
-                  "name": "Everton Oliveira",
-                  "phone": "9132867766",
-                  "cell_phone": "91981501208",
-                  "email": "evertonsdsilva@gmail.com",
-                  "document": "36425",
-                  "birth_date": "1987-11-25",
-                  "password": "12345"
                 }
               }
             }
           }
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Created"
           },
           "500": {
-            "description": "User already exists"
+            "description": "Internal server error"
           }
         }
       }
     },
-    "/v1/users/{document}": {
+    "/v1/notes/{user_id}": {
       "get": {
-        "tags": ["Users"],
-        "summary": "Validate document",
-        "description": "Validate document",
+        "tags": ["Notes"],
+        "summary": "Search notes by user",
+        "description": "Search notes by user",
         "parameters": [
           {
-            "name": "document",
+            "name": "user_id",
             "in": "path",
-            "description": "document",
+            "description": "user_id",
             "required": true,
             "schema": {
               "type":"string"
@@ -147,19 +116,25 @@
             "description": "User enabled for registration"
           },
           "500": {
-            "description": "User already exists"
+            "description": "Internal server error"
           }
         }
       }
     },
-    "/v1/users/avatar": {
-      "patch": {
-        "tags": ["Users"],
-        "summary": "Validate document",
-        "description": "Validate document",
-        "security": [
+    "/v1/notes/{id}": {
+      "put": {
+        "tags": ["Notes"],
+        "summary": "Update a Notes",
+        "description": "Update Notes",
+        "parameters": [
           {
-            "bearerAuth": []
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "schema": {
+              "type":"string"
+            }
           }
         ],
         "requestBody": {
@@ -168,78 +143,16 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "avatar": {
+                  "file": {
                     "type": "string",
                     "format": "binary"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "User enabled for registration"
-          },
-          "500": {
-            "description": "User already exists"
-          }
-        }
-      }
-    },
-    "/v1/users/resetpassword": {
-      "post": {
-        "tags": ["Users"],
-        "summary": "Reset password",
-        "description": "Reset password",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "email": "evertonsdsilva@gmail.com"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          },
-          "500": {
-            "description": "User already exists"
-          }
-        }
-      }
-    },
-    "/v1/users/auth": {
-      "post": {
-        "tags": ["Users"],
-        "summary": "Session a User",
-        "description": "Session a User",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "document": {
+                  },
+                  "description": {
                     "type": "string"
                   },
-                  "password": {
+                  "type_file": {
                     "type": "string"
                   }
-                },
-                "example": {
-                  "document": "36425",
-                  "password": "12345"
                 }
               }
             }
@@ -250,123 +163,21 @@
             "description": "Created"
           },
           "500": {
-            "description": "User already exists"
+            "description": "Internal server error"
           }
         }
       }
     },
-    "/v1/distresscall": {
-      "post": {
-        "tags": ["Distress Call"],
-        "summary": "Create Distress Call",
-        "description": "Create Distress Call",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "lat": {
-                    "type": "number"
-                  },
-                  "lng": {
-                    "type": "number"
-                  },
-                  "uid": {
-                    "type": "number"
-                  }
-                },
-                "example": {
-                  "lat": -1.484587367,
-                  "lng": -48.473473,
-                  "uid": 1234
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "User already exists"
-          }
-        }
-      }
-    },
-    "/v1/distresscall/{distress_call_id}": {
-      "put": {
-        "tags": ["Distress Call"],
-        "summary": "Update location",
-        "description": "Update location",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "distress_call_id",
-            "in": "path",
-            "description": "Distress call id",
-            "required": true,
-            "schema": {
-              "type":"string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "lat": {
-                    "type": "number"
-                  },
-                  "lng": {
-                    "type": "number"
-                  }
-                },
-                "example": {
-                  "lat": -1.484587367,
-                  "lng": -48.473473
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Created"
-          },
-          "500": {
-            "description": "User already exists"
-          }
-        }
-      }
-    },
-    "/v1/distresscall/{id}": {
-      "patch": {
-        "tags": ["Distress Call"],
-        "summary": "Finish distress call",
-        "description": "Finish distress call",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+    "/v1/notes/delete/{id}": {
+      "delete": {
+        "tags": ["Notes"],
+        "summary": "Delete a Notes",
+        "description": "Delete Notes",
         "parameters": [
           {
             "name": "id",
             "in": "path",
-            "description": "Distress call id",
+            "description": "id",
             "required": true,
             "schema": {
               "type":"string"
@@ -375,97 +186,12 @@
         ],
         "responses": {
           "204": {
-            "description": "Finish"
+            "description": "Success"
           },
           "500": {
             "description": "Internal server error"
           }
         }
-      }
-    },
-    "/v1/distresscall/listall": {
-      "post": {
-        "tags": ["Distress Call"],
-        "summary": "List all didtress call by status",
-        "description": "List all didtress call by status",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "activid": {
-                    "type": "boolean"
-                  },
-                  "take": {
-                    "type": "number"
-                  },
-                  "page": {
-                    "type": "number"
-                  }
-                },
-                "example": {
-                  "activid": true,
-                  "take": 10,
-                  "page": 1
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Listed"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        }
-      }
-    },
-    "/v1/distresscall/{_id}": {
-      "get": {
-        "tags": ["Distress Call"],
-        "summary": "List distress call by id",
-        "description": "List distress call by id",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "_id",
-            "in": "path",
-            "description": "Distress call id",
-            "required": true,
-            "schema": {
-              "type":"string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Finish"
-          },
-          "500": {
-            "description": "Internal server error"
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
       }
     }
   }
