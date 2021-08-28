@@ -34,7 +34,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           source: "., !node_modules"
-          target: "~/app/tech_porto_api"
+          target: "~/app/sos"
           
       - name: Update API
         uses: appleboy/ssh-action@master
@@ -44,7 +44,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/app/desafio_iclinic
+            cd ~/app/sos
             yarn
             ./node_modules/.bin/typeorm migration:run
             pm2 restart server
